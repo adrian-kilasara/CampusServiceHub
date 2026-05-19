@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/WEB PROJECTS/STUDIES AND LEARNING/FULL STACK DEVOPS/PHP/**)",
+      "Bash(composer create-project *)",
+      "Bash(Get-ChildItem -Force \"D:\\\\WEB PROJECTS\\\\STUDIES AND LEARNING\\\\FULL STACK DEVOPS\\\\PHP\\\\CAMPUS HUB\")",
+      "Bash(Select-Object Name, Attributes)",
+      "PowerShell([System.IO.Directory]::GetFileSystemEntries\\(\"D:\\\\WEB PROJECTS\\\\STUDIES AND LEARNING\\\\FULL STACK DEVOPS\\\\PHP\\\\CAMPUS HUB\"\\))",
+      "Bash(composer require *)",
+      "Bash(php --version)",
+      "Bash(php -m)",
+      "Bash(php artisan *)",
+      "Bash(mysql --version)",
+      "PowerShell(Start-Process \"C:\\\\xampp\\\\mysql\\\\bin\\\\mysqld.exe\" -ArgumentList \"--defaults-file=C:\\\\xampp\\\\mysql\\\\bin\\\\my.ini\" -WindowStyle Hidden)",
+      "PowerShell(& \"C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"CREATE DATABASE IF NOT EXISTS campushub CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\" 2>&1)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(Get-ChildItem \"D:\\\\WEB PROJECTS\\\\STUDIES AND LEARNING\\\\FULL STACK DEVOPS\\\\PHP\\\\CAMPUS HUB\\\\app\\\\Console\\\\\" -ErrorAction SilentlyContinue; Get-ChildItem \"D:\\\\WEB PROJECTS\\\\STUDIES AND LEARNING\\\\FULL STACK DEVOPS\\\\PHP\\\\CAMPUS HUB\\\\routes\\\\\" -ErrorAction SilentlyContinue)",
+      "Bash(grep -E \"\\\\.php$\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
