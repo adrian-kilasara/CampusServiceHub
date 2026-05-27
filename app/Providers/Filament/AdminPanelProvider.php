@@ -27,8 +27,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Indigo,
-                'gray' => Color::Zinc,
+                'primary' => Color::hex('#8acfd1'), // Bubblegum teal
+                'gray'    => Color::Zinc,
             ])
             ->brandName('CampusHub — Admin')
             ->favicon(asset('favicon.ico'))

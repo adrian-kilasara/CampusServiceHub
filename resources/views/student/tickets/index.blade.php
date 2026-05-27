@@ -4,64 +4,69 @@
 @section('content')
 <div class="mb-6 flex items-center justify-between">
     <div>
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Support Tickets</h1>
-        <p class="text-gray-500 dark:text-gray-400 mt-1">Get help from our support team.</p>
+        <h1 class="text-2xl font-black text-gray-900 dark:text-white">Support Tickets 🎫</h1>
+        <p class="text-gray-500 dark:text-gray-400 mt-1 font-medium">Get help from our support team.</p>
     </div>
-    <a href="{{ route('student.tickets.create') }}"
-        class="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-indigo-700 transition shadow text-sm">
-        + New Ticket
-    </a>
+    <a href="{{ route('student.tickets.create') }}" class="campus-btn">+ New Ticket</a>
 </div>
 
-<div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden">
+<div class="campus-card overflow-hidden">
     @if($tickets->isEmpty())
-        <div class="px-6 py-16 text-center text-gray-500 dark:text-gray-400">
+        <div class="px-6 py-16 text-center">
             <p class="text-5xl mb-4">🎫</p>
-            <p class="font-medium text-gray-700 dark:text-gray-300 mb-1">No tickets yet</p>
-            <p class="text-sm mb-6">Need help? Open a support ticket and we'll get back to you.</p>
-            <a href="{{ route('student.tickets.create') }}"
-                class="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-indigo-700 transition text-sm">
-                Open Ticket
-            </a>
+            <p class="font-bold text-gray-700 dark:text-gray-300 mb-1">No tickets yet</p>
+            <p class="text-sm text-gray-400 mb-6">Need help? Open a support ticket and we'll get back to you.</p>
+            <a href="{{ route('student.tickets.create') }}" class="campus-btn">Open Ticket</a>
         </div>
     @else
-        <div class="divide-y divide-gray-100 dark:divide-gray-800">
-            @php
-                $statusColors = ['open'=>'green','in_progress'=>'blue','resolved'=>'gray','closed'=>'gray'];
-                $priorityColors = ['low'=>'gray','medium'=>'blue','high'=>'orange','urgent'=>'red'];
-            @endphp
+        @php
+            $smap = [
+                'open'        => ['#d1fae5','#6ee7b7','#065f46'],
+                'in_progress' => ['#b2e1eb','#8acfd1','#0e7490'],
+                'resolved'    => ['#f3f4f6','#d1d5db','#6b7280'],
+                'closed'      => ['#f3f4f6','#d1d5db','#6b7280'],
+            ];
+            $pmap = [
+                'low'    => ['#f3f4f6','#d1d5db','#6b7280'],
+                'medium' => ['#b2e1eb','#8acfd1','#0e7490'],
+                'high'   => ['#fdedc9','#f5c96b','#b8860b'],
+                'urgent' => ['#fee2e2','#fca5a5','#991b1b'],
+            ];
+        @endphp
+        <div class="divide-y divide-campus-pink/10 dark:divide-campus-dark-m">
             @foreach($tickets as $ticket)
             @php
-                $sc = $statusColors[$ticket->status] ?? 'gray';
-                $pc = $priorityColors[$ticket->priority] ?? 'gray';
+                [$sbg,$sborder,$stext] = $smap[$ticket->status] ?? $smap['closed'];
+                [$pbg,$pborder,$ptext] = $pmap[$ticket->priority] ?? $pmap['low'];
             @endphp
             <a href="{{ route('student.tickets.show', $ticket) }}"
-                class="flex items-center justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition">
+                class="flex items-center justify-between px-6 py-4 hover:bg-campus-pink-l/30 dark:hover:bg-campus-dark-m/50 transition">
                 <div class="flex items-center gap-4">
-                    <div class="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-xs flex-shrink-0">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+                         style="background:#fdedc9;border:2px solid #f5c96b">
                         🎫
                     </div>
                     <div>
-                        <p class="font-medium text-gray-900 dark:text-white text-sm">{{ $ticket->subject }}</p>
+                        <p class="font-bold text-gray-900 dark:text-white text-sm">{{ $ticket->subject }}</p>
                         <p class="text-xs text-gray-400 mt-0.5 font-mono">{{ $ticket->ticket_number }} • {{ $ticket->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-3 flex-shrink-0">
-                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-{{ $pc }}-100 dark:bg-{{ $pc }}-900/30 text-{{ $pc }}-700 dark:text-{{ $pc }}-400 capitalize hidden sm:inline-flex">
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full border capitalize hidden sm:inline-flex"
+                          style="background:{{ $pbg }};border-color:{{ $pborder }};color:{{ $ptext }}">
                         {{ $ticket->priority }}
                     </span>
-                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-{{ $sc }}-100 dark:bg-{{ $sc }}-900/30 text-{{ $sc }}-700 dark:text-{{ $sc }}-400 capitalize">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full border capitalize"
+                          style="background:{{ $sbg }};border-color:{{ $sborder }};color:{{ $stext }}">
                         {{ str_replace('_', ' ', $ticket->status) }}
                     </span>
-                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
+                    <span class="text-campus-pink dark:text-campus-yellow font-bold text-sm">→</span>
                 </div>
             </a>
             @endforeach
         </div>
         @if($tickets->hasPages())
-        <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
+        <div class="px-6 py-4 border-t border-campus-pink/10 dark:border-campus-dark-m">
             {{ $tickets->links() }}
         </div>
         @endif

@@ -27,8 +27,8 @@ class SuperAdminPanelProvider extends PanelProvider
             ->path('super-admin')
             ->login()
             ->colors([
-                'primary' => Color::Violet,
-                'gray' => Color::Slate,
+                'primary' => Color::hex('#d04f99'), // Bubblegum pink
+                'gray'    => Color::Slate,
             ])
             ->brandName('CampusHub — Super Admin')
             ->favicon(asset('favicon.ico'))
